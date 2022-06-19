@@ -14,8 +14,8 @@ export default function App(props) {
     event.preventDefault();
     console.log("crear nota");
     const noteToAddToState = {
-      id: notes.lenght + 1,
-      title: newNote
+      hash: notes.lenght + 1,
+      fee: newNote
     };
 
     setNotes((prevNotes) => prevNotes.concat(noteToAddToState));
@@ -33,7 +33,7 @@ export default function App(props) {
 
       <form onSubmit={handleSubmit}>
         <input type="text" onChange={handleChange} value={newNote} />
-        <button>Magic Button</button>
+        <button>Add fee</button>
       </form>
     </div>
   );
