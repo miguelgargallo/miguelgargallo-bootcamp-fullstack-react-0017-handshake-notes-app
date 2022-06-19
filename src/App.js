@@ -1,6 +1,7 @@
 import "./styles.css";
 import { useEffect, useState } from "react";
 import { Note } from "./Note.js";
+import axios from "axios";
 
 export default function App() {
   const [notes, setNotes] = useState([]);
@@ -10,18 +11,12 @@ export default function App() {
   useEffect(() => {
     console.log("useEffect");
     setLoading(true);
-
-    setTimeout(() => {
-      console.log("ahora");
-      fetch("https://jsonplaceholder.typicode.com/posts")
-        .then((response) => response.json())
-        .then((json) => {
-          console.log("setenado los cambios de la API");
-          setNotes(json);
-          setLoading(false);
-        });
-    }, 2000);
-  }, [newNote]);
+    axios.get("https://jsonplaceholder.typicode.com/posts").then((response) => {
+      const { data } = response;
+      setNotes(data);
+      setLoading(false);
+    });
+  }, []);
 
   const handleChange = (event) => {
     setNewNote(event.target.value);
@@ -54,7 +49,7 @@ export default function App() {
 
       <form onSubmit={handleSubmit}>
         <input type="text" onChange={handleChange} value={newNote} />
-        <button>Add fee</button>
+        <button>Add name</button>
       </form>
     </div>
   );
